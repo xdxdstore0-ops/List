@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XDXD STORE | UNCHEK LIST</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg: #000000;
+            --neon: #00f0ff;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(0, 240, 255, 0.2);
+            --glass: rgba(0, 240, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* --- ANIMATED BACKGROUND --- */
+        .bg-animate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 50%, #001a1d 0%, #000 100%);
+        }
+
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: move 20s infinite alternate;
+        }
+
+        .blob:nth-child(2) {
+            background: radial-gradient(circle, rgba(0, 100, 255, 0.08) 0%, transparent 70%);
+            width: 600px;
+            height: 600px;
+            right: -100px;
+            top: -100px;
+            animation-duration: 15s;
+        }
+
+        @keyframes move {
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .logo-text span {
+            color: var(--neon);
+            text-shadow: 0 0 20px rgba(0, 240, 255, 0.6);
+        }
+
+        .badge {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* --- SECTION STYLING --- */
+        .section-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--neon);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 40px 0 20px;
+            display: block;
+            text-align: center;
+        }
+
+        /* --- PRICE LIST & CHANNEL --- */
+        .price-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .price-item, .channel-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 18px 25px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            text-decoration: none;
+            color: white;
+        }
+
+        .price-item:hover, .channel-card:hover {
+            border-color: var(--neon);
+            background: rgba(0, 240, 255, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.1);
+        }
+
+        /* --- SALURAN / TESTIMONI CARD --- */
+        .channel-card {
+            background: linear-gradient(90deg, rgba(0, 240, 255, 0.05), transparent);
+            border: 1px dashed var(--neon);
+            margin-top: 10px;
+        }
+
+        .channel-card i.main-icon {
+            font-size: 1.8rem;
+            color: var(--neon);
+            margin-right: 20px;
+            filter: drop-shadow(0 0 5px var(--neon));
+        }
+
+        .channel-info {
+            flex-grow: 1;
+        }
+
+        .channel-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+
+        .channel-info p {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .price-info h3 { font-size: 1.2rem; font-weight: 600; }
+        .price-info p { font-size: 0.85rem; opacity: 0.6; margin-top: 2px; }
+        .price-value { font-size: 1.4rem; font-weight: 800; color: var(--neon); }
+
+        /* --- PAYMENT & RULES --- */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+
+        .pay-card {
+            background: var(--card-bg);
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .rules-list {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 20px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .rules-list i { color: var(--neon); margin-right: 10px; }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.8rem;
+            opacity: 0.4;
+        }
+
+        /* --- FLOATING WA --- */
+        .btn-wa {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--neon);
+            color: #000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .btn-wa:hover { transform: scale(1.1); }
+
+        /* Animation On Scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: 0.6s all ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animate">
+        <div class="blob"></div>
+        <div class="blob"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="badge">PROSES CEPAT & STOK READY</div>
+            <h1 class="logo-text">XDXD <span>STORE</span></h1>
+            <p style="opacity: 0.6; margin-top: 10px;">Premium Digital Goods Provider</p>
+        </header>
+
+        <!-- Bagian Saluran / Testimoni -->
+        <span class="section-tag">Testimoni & Saluran</span>
+        <a href="https://whatsapp.com/channel/0029VbCTLUq89inlJwnfyA1E" target="_blank" class="channel-card reveal">
+            <i class="fas fa-bullhorn main-icon"></i>
+            <div class="channel-info">
+                <h3>Saluran WhatsApp</h3>
+                <p>Klik untuk melihat Testimoni & Update stok terbaru</p>
+            </div>
+            <i class="fas fa-external-link-alt" style="opacity: 0.5;"></i>
+        </a>
+
+        <span class="section-tag">Daftar Harga Unchek</span>
+        <div class="price-list">
+            <a href="https://wa.me/6285210815266?text=Halo%20min%20saya%20ingin%20order%20UNCHEK%2010K" class="price-item reveal">
+                <div class="price-info">
+                    <h3>75 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">10K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>85 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">15K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>100 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">20K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>120 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">30K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>165 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">50K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>270 UNCHEK</h3>
+                    <p>Original Fresh Stock</p>
+                </div>
+                <div class="price-value">90K</div>
+            </a>
+            <a href="#" class="price-item reveal">
+                <div class="price-info">
+                    <h3>340 UNCHEK</h3>
+                    <p>Best Value Pack</p>
+                </div>
+                <div class="price-value">100K</div>
+            </a>
+        </div>
+
+        <span class="section-tag">Metode Pembayaran</span>
+        <div class="payment-grid reveal">
+            <div class="pay-card">DANA</div>
+            <div class="pay-card">QRIS</div>
+            <div class="pay-card">GOPAY</div>
+        </div>
+
+        <span class="section-tag">Aturan Toko</span>
+        <div class="rules-list reveal">
+            <p><i class="fas fa-check-circle"></i> BUY = SETUJU RULES</p>
+            <p><i class="fas fa-check-circle"></i> NO REFF / NO GARANSI</p>
+            <p><i class="fas fa-check-circle"></i> SERIUS BUYER ONLY</p>
+            <p><i class="fas fa-check-circle"></i> STOK DIUPDATE SETIAP HARI</p>
+        </div>
+
+        <footer>
+            &copy; 2024 XDXD STORE || PREMIUM QUALITY
+        </footer>
+    </div>
+
+    <!-- Tombol WhatsApp Mengambang -->
+    <a href="https://wa.me/6285210815266?text=Halo%20min%20saya%20ingin%20order%20UNCHEK" class="btn-wa">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Animasi muncul saat scroll
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Jalankan sekali saat load
+    </script>
+</body>
+</html>
